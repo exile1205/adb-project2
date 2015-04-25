@@ -14,11 +14,11 @@ class CreateClassesTable extends Migration {
 	{
 		Schema::create('classes', function(Blueprint $table)
 		{
-			$table->increments('c_id');
-			$table->string('c_name');
-			$table->string('c_framework');
-			$table->string('c_topic');
-			$table->string('c_subtopic');
+			$table->increments('id');
+			$table->string('name');
+			$table->string('framework');
+			$table->string('topic');
+			$table->string('subtopic');
 			$table->timestamps();
 		});
 	}

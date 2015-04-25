@@ -12,7 +12,7 @@ class User_App_Comment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id','u_id','a_id','u_a_comment'];
+	protected $fillable = ['id','u_id','a_id','comment'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

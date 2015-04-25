@@ -12,7 +12,7 @@ class App_Behavior extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id','a_id','b_id','a_b_score'];
+	protected $fillable = ['id','a_id','b_id','score'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

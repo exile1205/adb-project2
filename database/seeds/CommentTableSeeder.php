@@ -10,13 +10,13 @@ class CommentTableSeeder extends Seeder {
 			'id'			=> '1',
 			'u_id'  		=> '1',
 			'a_id'			=> '123',
-			'u_a_comment'	=> 'I like this app~'
+			'comment'		=> 'I like this app~'
 		]);
 		User_App_Comment::create([
 			'id'			=> '2',
 			'u_id'  		=> '1',
 			'a_id'			=> '456',
-			'u_a_comment'	=> 'This app Suck~'
+			'comment'		=> 'This app Suck~'
 		]);
 
 	}

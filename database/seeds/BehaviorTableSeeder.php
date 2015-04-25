@@ -7,24 +7,24 @@ class BehaviorTableSeeder extends Seeder {
 	public function run()
 	{
 		Behavior::create([
-			'b_id'  		=> '1',
-			'b_name'		=> 'Play Game'
+			'id'  		=> '1',
+			'name'		=> 'Play Game'
 		]);
 		Behavior::create([
-			'b_id'  		=> '2',
-			'b_name'		=> 'Take Picture'
+			'id'  		=> '2',
+			'name'		=> 'Take Picture'
 		]);
 		Behavior::create([
-			'b_id'  		=> '3',
-			'b_name'		=> 'Screen'
+			'id'  		=> '3',
+			'name'		=> 'Screen'
 		]);
 		Behavior::create([
-			'b_id'  		=> '4',
-			'b_name'		=> 'Location Access'
+			'id'  		=> '4',
+			'name'		=> 'Location Access'
 		]);
 		Behavior::create([
-			'b_id'  		=> '5',
-			'b_name'		=> 'Connect Internet'
+			'id'  		=> '5',
+			'name'		=> 'Connect Internet'
 		]);
 
 	}

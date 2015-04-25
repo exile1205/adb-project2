@@ -23,8 +23,8 @@ class CreateUserAppSucksTable extends Migration {
 
 		Schema::table('user__app__sucks', function($table)
 		{
-			$table->foreign('u_id')->references('u_id')->on('users');
-			$table->foreign('a_id')->references('a_id')->on('apps');
+			$table->foreign('u_id')->references('id')->on('users');
+			$table->foreign('a_id')->references('id')->on('apps');
 		});
 	}
 

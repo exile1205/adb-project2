@@ -14,12 +14,13 @@ class CreateAppsTable extends Migration {
 	{
 		Schema::create('apps', function(Blueprint $table)
 		{
-			$table->string('a_id')->unique();
-			$table->string('a_name');
-			$table->string('a_genre');
-			$table->float('a_rating');
-			$table->integer('a_rating_users');
-			$table->string('a_arm');
+			$table->string('id')->unique();
+			$table->string('name');
+			$table->string('genre');
+			$table->float('rating');
+			$table->integer('rating_users');
+			$table->string('arm');
+			$table->string('img_url');
 			$table->timestamps();
 		});
 	}

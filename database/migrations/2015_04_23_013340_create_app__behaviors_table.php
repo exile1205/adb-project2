@@ -17,15 +17,15 @@ class CreateAppBehaviorsTable extends Migration {
 			$table->increments('id');
 			$table->string('a_id');
 			$table->integer('b_id')->unsigned();
-			$table->float('a_b_score');
+			$table->float('score');
 			$table->timestamps();
 		});
 
 		Schema::table('app__behaviors',function($table)
 		{
 
-			$table->foreign('a_id')->references('a_id')->on('apps');
-			$table->foreign('b_id')->references('b_id')->on('behaviors');
+			$table->foreign('a_id')->references('id')->on('apps');
+			$table->foreign('b_id')->references('id')->on('behaviors');
 		});
 	}
 

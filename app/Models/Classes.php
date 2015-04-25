@@ -12,7 +12,7 @@ class Classes extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['c_id','c_name','c_framework','c_topic','c_subtopic'];
+	protected $fillable = ['id','name','framework','topic','subtopic'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

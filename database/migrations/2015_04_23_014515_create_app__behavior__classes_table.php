@@ -24,9 +24,9 @@ class CreateAppBehaviorClassesTable extends Migration {
 
 		Schema::table('app__behavior__classes',function($table)
 		{
-			$table->foreign('a_id')->references('a_id')->on('apps');
-			$table->foreign('b_id')->references('b_id')->on('behaviors');
-			$table->foreign('c_id')->references('c_id')->on('classes');
+			$table->foreign('a_id')->references('id')->on('apps');
+			$table->foreign('b_id')->references('id')->on('behaviors');
+			$table->foreign('c_id')->references('id')->on('classes');
 		});
 	}
 

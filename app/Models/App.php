@@ -12,7 +12,7 @@ class App extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['a_id', 'a_name', 'a_genre','a_rating','a_rating_users','a_arm'];
+	protected $fillable = ['id', 'name', 'genre','rating','rating_users','arm','img_url'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
