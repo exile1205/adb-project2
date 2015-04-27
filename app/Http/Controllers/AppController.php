@@ -33,6 +33,10 @@ class AppController extends Controller {
 			$app_list -> where('apps.genre','=',$genre);
 		}
 
+		if(Input::has('skip')){
+			$skip = Input::get('skip');
+			$app_list->skip($skip);
+		}
 		$apps = $app_list->get();
 		if(empty($apps->first())){
 			return Response::json(array('message' => 'Empty Query Man~', 'status' => 'error'));

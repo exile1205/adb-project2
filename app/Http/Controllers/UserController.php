@@ -137,8 +137,15 @@ class UserController extends Controller {
 				$user_coment_counts = User::where('users.id','=',$id)
 											->join('user__app__comments','user__app__comments.u_id','=','users.id')
 											->count();
+
+				$user_comment_list = User::join('user__app__comments','user__app__comments.u_id','=','users.id')
+											->join('apps','apps.id','=','user__app__comments.a_id')
+											->where('users.id','=',$id)
+											->select('user__app__comments.comment','apps.name','apps.id','apps.img_url','user__app__comments.created_at')
+											->get();
 				$user->suck_counts = $user_suck_counts;
 				$user->comments_counts = $user_coment_counts;
+				$user->comment = $user_comment_list;
 				$user->status = 'success';
 				return $user;
 				break;

@@ -18,6 +18,7 @@ class CreateAppsTable extends Migration {
 			$table->string('name');
 			$table->string('genre');
 			$table->float('rating');
+			$table->string('description');
 			$table->integer('rating_users');
 			$table->string('arm');
 			$table->string('img_url');
