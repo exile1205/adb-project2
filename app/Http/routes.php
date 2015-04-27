@@ -21,3 +21,4 @@ Route::controllers([
 ]);
 
 Route::resource('user','UserController');
+Route::resource('app','AppController');

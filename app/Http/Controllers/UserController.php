@@ -69,14 +69,18 @@ class UserController extends Controller {
 				$email = Input::get('email');
 				$pass = Input::get('password');
 				$name = Input::get('name');
+				$intro = Input::get('self_intro');
 
 				$check_email = User::where('email','=',$email)
 									->first();
 
 				if(empty($check_email)){
 					$user = new User;
+					$img_url = "/image/user/".rand(1,10).".jpg";
 					$user->email 		= $email;
 					$user->name 		= $name;
+					$user->img 			= $img_url;
+					$user->self_intro	= $intro;
 					$user->password		= Hash::make($pass);
 
 					$user->save();
@@ -90,13 +94,14 @@ class UserController extends Controller {
 					$user = User::where('id','=',$user_id)
 								->first();
 
-					if ( Input::get('name'))
-				    {
+					if ( Input::get('name')){
 				       	$user->name = Input::get('name');
 				    }
-				    if ( Input::get('password'))
-				    {
+				    if ( Input::get('password')){
 				       	$user->password = Input::get('password');
+				    }
+				    if ( Input::get('self_intro')){
+				    	$user->self_intro = Input::get('self_intro');
 				    }
 
 				    $user->update();
