@@ -34,8 +34,8 @@ class AppController extends Controller {
 		}
 
 		$apps = $app_list->get();
-		if(empty($apps)){
-			return Response::json(array('message' => 'Have already suck.', 'status' => 'error'));
+		if(empty($apps->first())){
+			return Response::json(array('message' => 'Empty Query Man~', 'status' => 'error'));
 		}else{
 			foreach ($apps as $key => $value) {
 				
