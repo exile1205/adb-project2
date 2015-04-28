@@ -22,7 +22,7 @@ class AppController extends Controller {
 	{
 		$status= Input::get('status');
 
-		if($status = 'comment'){
+		if($status == 'comment'){
 			$comment_new = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
 											->join('users','users.id','=','user__app__comments.u_id')
 											->select('user__app__comments.id','users.name as user_name','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at')
@@ -137,12 +137,14 @@ class AppController extends Controller {
 					$check_suck = User::join('user__app__sucks','user__app__sucks.u_id','=','users.id')
 										->where('user__app__sucks.a_id','=',$app_id)
 										->where('user__app__sucks.u_id','=',$user_id)
+										->select('user__app__sucks.id as id')
 										->first();
 					//return $check_suck;
 					if(empty($check_suck)){
 						return Response::json(array('message' => 'Not suck.', 'status' => 'error'));
 					}else{
-						$check_suck->delete();
+						$delete_suck = User_App_Suck::where('user__app__sucks.id','=',$check_suck['id'])
+										->delete();
 						return Response::json(array('message' => 'Delete success.', 'status' => 'success'));
 					}
 					break;
@@ -152,6 +154,7 @@ class AppController extends Controller {
 					$comment_id = Input::get('comment_id');
 
 					$check_comment = User_App_Comment::where('id','=',$comment_id)
+									->where('u_id','=',$user_id)
 									->first();
 					if(empty($check_comment)){
 						return Response::json(array('message' => 'No comment.', 'status' => 'error'));
@@ -169,6 +172,7 @@ class AppController extends Controller {
 					$comment_id = Input::get('comment_id');
 
 					$check_comment = User_App_Comment::where('id','=',$comment_id)
+													->where('u_id','=',$user_id)
 													->first();
 					if(empty($check_comment)){
 						return Response::json(array('message' => 'No comment.', 'status' => 'error'));
@@ -207,8 +211,15 @@ class AppController extends Controller {
 		$app_behaviors = App::join('app__behaviors','app__behaviors.a_id','=','apps.id')
 							->join('behaviors','behaviors.id','=','app__behaviors.b_id')
 							->where('apps.id','=',$id)
-							->select('behaviors.name','app__behaviors.score')
+							->select('behaviors.id','behaviors.name','app__behaviors.score')
 							->get();
+
+		$app_comments = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
+										->join('users','users.id','=','user__app__comments.u_id')
+										->where('user__app__comments.a_id','=',$id)
+										->select('user__app__comments.id','users.id as user_id','users.name as user_name','comment','user__app__comments.created_at as comment_time')
+										->orderBy('user__app__comments.created_at','desc')
+										->get();
 
 		$app_suck_counts = App::join('user__app__sucks','user__app__sucks.a_id','=','apps.id')
 								->where('apps.id','=',$id)
@@ -219,9 +230,26 @@ class AppController extends Controller {
 								->count();
 
 		$app_detail->behaviors = $app_behaviors;
+		$app_detail->comments = $app_comments;
 		$app_detail->suck_count = $app_suck_counts;
-		$app_detail->app_comment = $app_comment_counts;
+		$app_detail->comment_count = $app_comment_counts;
 
+		if(Auth::check()){
+			$user_id = Auth::user()->id;
+			$check_suck = User::join('user__app__sucks','user__app__sucks.u_id','=','users.id')
+										->where('user__app__sucks.a_id','=',$id)
+										->where('user__app__sucks.u_id','=',$user_id)
+										->first();
+			if(empty($check_suck)){
+				$user_suck = "Not yet";
+			}else{
+				$user_suck = "Already";
+			}
+		}else{
+			$user_suck = "Not login";
+		}
+		$app_detail->user_suck = $user_suck;
+		$app_detail->success = 'success';
 		return $app_detail;
 
 	}
