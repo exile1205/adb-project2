@@ -20,9 +20,24 @@ class AppController extends Controller {
 	 */
 	public function index()
 	{
-		//multisearch
-		$app_list = App::select('id','name','genre','rating');
+		$status= Input::get('status');
 
+		if($status = 'comment'){
+			$comment_new = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
+											->join('users','users.id','=','user__app__comments.u_id')
+											->select('user__app__comments.id','users.name as user_name','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at')
+											->orderBy('user__app__comments.created_at','desc')
+											->take(5)
+											->get();
+
+			return $comment_new;
+		}
+
+		//multisearch
+		$app_list = App::leftjoin('user__app__sucks','user__app__sucks.a_id','=','apps.id')
+						->select('apps.id','apps.name','apps.genre','apps.rating',\DB::raw('count(user__app__sucks.id) as suck_count'))
+						->groupBy('apps.id')
+						->orderBy('suck_count','desc');
 		if(Input::has('name')){
 		 	$name = Input::get('name');
 			$app_list -> where('apps.name','LIKE','%'.$name.'%');
@@ -37,20 +52,16 @@ class AppController extends Controller {
 			$skip = Input::get('skip');
 			$app_list->skip($skip);
 		}
-		$apps = $app_list->get();
+		$apps = $app_list->take(10)->get();
 		if(empty($apps->first())){
 			return Response::json(array('message' => 'Empty Query Man~', 'status' => 'error'));
 		}else{
 			foreach ($apps as $key => $value) {
 				
-				$app_suck_counts = App::join('user__app__sucks','user__app__sucks.a_id','=','apps.id')
-									->where('apps.id','=',$value['id'])
-									->count();
-
 				$app_comment_counts = App::join('user__app__comments','user__app__comments.a_id','=','apps.id')
 									->where('apps.id','=',$value['id'])
 									->count();
-				$value->suck_count = $app_suck_counts;
+				//$value->suck_count = $app_suck_counts;
 				$value->app_comment = $app_comment_counts;
 				
 			}
@@ -100,7 +111,8 @@ class AppController extends Controller {
 					
 					$app_id = Input::get('app_id');
 
-					$check_suck = App::join('user__app__sucks','user__app__sucks.a_id','=','apps.id')
+					$check_suck = User::join('user__app__sucks','user__app__sucks.u_id','=','users.id')
+										->where('user__app__sucks.a_id','=',$app_id)
 										->where('user__app__sucks.u_id','=',$user_id)
 										->first();
 					//return $check_suck;
@@ -122,7 +134,8 @@ class AppController extends Controller {
 					
 					$app_id = Input::get('app_id');
 
-					$check_suck = App::join('user__app__sucks','user__app__sucks.a_id','=','apps.id')
+					$check_suck = User::join('user__app__sucks','user__app__sucks.u_id','=','users.id')
+										->where('user__app__sucks.a_id','=',$app_id)
 										->where('user__app__sucks.u_id','=',$user_id)
 										->first();
 					//return $check_suck;
@@ -150,6 +163,23 @@ class AppController extends Controller {
 						$check_comment->status = 'success';
 						return $check_comment;
 					}
+					break;
+				case 'delete_comment':
+					
+					$comment_id = Input::get('comment_id');
+
+					$check_comment = User_App_Comment::where('id','=',$comment_id)
+													->first();
+					if(empty($check_comment)){
+						return Response::json(array('message' => 'No comment.', 'status' => 'error'));
+					}else{
+						if($check_comment['u_id']!=$user_id){
+							return Response::json(array('message' => 'Not same user', 'status' => 'error'));
+						}else{
+							$check_comment->delete();
+							return Response::json(array('message' => 'Delete success', 'status' => 'success'));
+						}
+					}		
 
 					break;
 				default:
