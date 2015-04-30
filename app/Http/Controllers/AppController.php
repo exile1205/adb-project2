@@ -35,7 +35,7 @@ class AppController extends Controller {
 
 		//multisearch
 		$app_list = App::leftjoin('user__app__sucks','user__app__sucks.a_id','=','apps.id')
-						->select('apps.id','apps.name','apps.genre','apps.rating',\DB::raw('count(user__app__sucks.id) as suck_count'))
+						->select('apps.id','apps.name','apps.img_url','apps.genre','apps.rating',\DB::raw('count(user__app__sucks.id) as suck_count'))
 						->groupBy('apps.id')
 						->orderBy('suck_count','desc');
 		if(Input::has('name')){
