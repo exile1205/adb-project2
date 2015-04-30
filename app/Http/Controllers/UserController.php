@@ -71,7 +71,7 @@ class UserController extends Controller {
 				$email = Input::get('email');
 				$pass = Input::get('password');
 				$name = Input::get('name');
-				$intro = Input::get('self_intro');
+				$intro = '你好，我是'.$name.'請多多指教～';
 
 				$check_email = User::where('email','=',$email)
 									->first();
