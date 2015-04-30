@@ -100,7 +100,8 @@ class UserController extends Controller {
 				       	$user->name = Input::get('name');
 				    }
 				    if ( Input::get('password')){
-				       	$user->password = Input::get('password');
+				    	$pass = Input::get('password');
+				       	$user->password = Hash::make($pass);
 				    }
 				    if ( Input::get('self_intro')){
 				    	$user->self_intro = Input::get('self_intro');
