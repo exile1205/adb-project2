@@ -205,6 +205,21 @@ class AppController extends Controller {
 	public function show($id)
 	{
 		//
+		$status= Input::get('status');
+
+		if($status == 'comment'){
+			$comment_new = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
+											->join('users','users.id','=','user__app__comments.u_id')
+											->select('user__app__comments.id','users.name as user_name','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
+											->orderBy('user__app__comments.created_at','desc')
+											->where('apps.id','=',$id);
+			if(empty($comment_new->first())){
+				return Response::json(array('message' => 'No comments', 'status' => 'error'));
+			}
+
+			return $comment_new->get();
+		}
+
 		$app_detail = App::where('id','=',$id)
 						->first();
 
