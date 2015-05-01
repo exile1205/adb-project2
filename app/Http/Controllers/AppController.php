@@ -210,7 +210,7 @@ class AppController extends Controller {
 		if($status == 'comment'){
 			$comment_new = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
 											->join('users','users.id','=','user__app__comments.u_id')
-											->select('user__app__comments.id','users.name as user_name','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
+											->select('user__app__comments.id','users.name as user_name','users.img as user_img','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
 											->orderBy('user__app__comments.created_at','desc')
 											->where('apps.id','=',$id);
 			if(empty($comment_new->first())){
