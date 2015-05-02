@@ -19,7 +19,7 @@ class CreateAppsTable extends Migration {
 			$table->string('genre',20);
 			$table->float('rating');
 			$table->string('description');
-			$table->integer('rating_users',11);
+			$table->integer('rating_users');
 			$table->string('arm',10);
 			$table->string('img_url');
 			$table->timestamps();
