@@ -19,7 +19,8 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		
+		$app_ran_list = App::orderByRaw("RAND()")->take(35)->lists('id');
+		echo var_dump($app_ran_list);
 	}
 
 	/**
