@@ -15,7 +15,7 @@ class CreateAppBehaviorClassesTable extends Migration {
 		Schema::create('app__behavior__classes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('a_id');
+			$table->string('a_id',9);
 			$table->integer('b_id')->unsigned();
 			$table->integer('c_id')->unsigned();
 			$table->timestamps();

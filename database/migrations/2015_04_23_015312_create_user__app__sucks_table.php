@@ -16,7 +16,7 @@ class CreateUserAppSucksTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('u_id')->unsigned();
-			$table->string('a_id');
+			$table->string('a_id',9);
 			$table->timestamps();
 
 		});
