@@ -50,13 +50,13 @@ class CommentTableSeeder extends Seeder {
 		//echo count($comment_list);
 		$user_list = User::select('id')->lists('id');
 		//echo var_dump($user_list);
-		$app_ran_list = App::orderByRaw("RAND()")->take(35)->lists('id');
-		foreach ($comment_list as $comment_key => $comment_value) {
-				foreach ($user_list as $user_key => $user_value) {
+		foreach ($user_list as $user_key => $user_value) {
+			$app_ran_list = App::orderByRaw("RAND()")->take(35)->lists('id');
+				foreach ($app_ran_list as $app_key => $app_value) {
 					User_App_Comment::create([
 					'u_id'  		=> $user_value,
-					'a_id'			=> $app_ran_list[$comment_key],
-					'comment'		=> $comment_value
+					'a_id'			=> $app_value,
+					'comment'		=> $comment_list[$app_key]
 				]);
 			}
 		}
