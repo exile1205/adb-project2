@@ -214,12 +214,13 @@ class AppController extends Controller {
 											->select('user__app__comments.id','users.name as user_name','users.id as user_id','users.img as user_img','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
 											->orderBy('user__app__comments.created_at','desc')
 											->where('user__app__comments.a_id','=',$id);
+			$return_all = $comment_new->get();
 			$empty_test = $comment_new->first();
 			if(empty($empty_test)){
 				return Response::json(array('message' => 'No comments', 'status' => 'error'));
 			}
 
-			return $comment_new->get();
+			return $return_all;
 		}
 
 		$app_detail = App::where('id','=',$id)
