@@ -213,7 +213,7 @@ class AppController extends Controller {
 											->join('users','users.id','=','user__app__comments.u_id')
 											->select('user__app__comments.id','users.name as user_name','users.id as user_id','users.img as user_img','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
 											->orderBy('user__app__comments.created_at','desc')
-											->where('apps.id','=',$id);
+											->where('user__app__comments.a_id','=',$id);
 			if(empty($comment_new->first())){
 				return Response::json(array('message' => 'No comments', 'status' => 'error'));
 			}
