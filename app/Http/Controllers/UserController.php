@@ -141,7 +141,7 @@ class UserController extends Controller {
 		
 		$user_comment_list = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
 											->join('users','users.id','=','user__app__comments.u_id')
-											->select('user__app__comments.id','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at')
+											->select('user__app__comments.id','apps.id as app_id','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at')
 											->where('users.id','=',$id)
 											->orderBy('user__app__comments.created_at','desc')
 											->get();
