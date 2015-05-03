@@ -19,8 +19,7 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		$app_ran_list = App::orderByRaw("RAND()")->take(35)->lists('id');
-		echo var_dump($app_ran_list);
+
 	}
 
 	/**
@@ -147,7 +146,7 @@ class UserController extends Controller {
 											->get();
 		$user_suck_list = User_App_Suck::join('apps','apps.id','=','user__app__sucks.a_id')
 										->join('users','users.id','=','user__app__sucks.u_id')
-										->select('user__app__sucks.id','apps.name as app_name','apps.img_url as app_img','user__app__sucks.created_at')
+										->select('user__app__sucks.id','apps.id as app_id','apps.name as app_name','apps.img_url as app_img','user__app__sucks.created_at')
 										->where('users.id','=',$id)
 										->orderBy('user__app__sucks.created_at','desc')
 										->get();		
