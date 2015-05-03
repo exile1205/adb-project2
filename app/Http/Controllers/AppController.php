@@ -211,7 +211,7 @@ class AppController extends Controller {
 		if($status == 'comment'){
 			$comment_new = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
 											->join('users','users.id','=','user__app__comments.u_id')
-											->select('user__app__comments.id','users.name as user_name','users.id as user_id','users.img as user_img','apps.name as app_name','apps.id as app_id','apps.img_url as app_img','comment','user__app__comments.created_at')
+											->select('user__app__comments.id','users.name as user_name','users.id as user_id','users.img as user_img','apps.id as app_id','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at')
 											->orderBy('user__app__comments.created_at','desc')
 											->where('user__app__comments.a_id','=',$id);
 			$return_all = $comment_new->get();
@@ -235,7 +235,7 @@ class AppController extends Controller {
 		$app_comments = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')
 										->join('users','users.id','=','user__app__comments.u_id')
 										->where('user__app__comments.a_id','=',$id)
-										->select('user__app__comments.id','users.id as user_id','users.name as user_name','comment','user__app__comments.created_at as comment_time')
+										->select('user__app__comments.id','users.id as user_id','users.name as user_name','apps.id as app_id','apps.name as app_name','apps.img_url as app_img','comment','user__app__comments.created_at as comment_time')
 										->orderBy('user__app__comments.created_at','desc')
 										->get();
 
