@@ -12,7 +12,7 @@ class Behavior extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id', 'name'];
+	protected $fillable = ['id', 'name','genre'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

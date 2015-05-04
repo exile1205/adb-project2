@@ -16,6 +16,7 @@ class CreateBehaviorsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name',60);
+			$table->tinyInteger('genre');
 			$table->timestamps();
 		});
 	}
