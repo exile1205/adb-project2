@@ -230,6 +230,8 @@ class AppController extends Controller {
 							->join('behaviors','behaviors.id','=','app__behaviors.b_id')
 							->where('apps.id','=',$id)
 							->select('behaviors.id','behaviors.name','app__behaviors.score')
+							->orderBy('app__behaviors.score','desc')
+							->orderBy('behaviors.id','asc')
 							->get();
 
 		$app_comments = User_App_Comment::join('apps','apps.id','=','user__app__comments.a_id')

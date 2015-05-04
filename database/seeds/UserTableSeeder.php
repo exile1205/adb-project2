@@ -13,13 +13,7 @@ class UserTableSeeder extends Seeder {
 		$faker = Faker::create();
 
 		foreach ($index as $key=>$value) {
-
-			// $index = $key + 1;
-			// $name = $name[$key];
-		 //    $email = $index[$key].'@nccu.edu.tw';
-		 //    $password = Hash::make('Suck'.$index[$key]);
-		 //    $self_intro = '這個傢伙很懶，什麼都沒寫';
-		    //print $value;
+			
 		    User::create([
 			'id'  		=> $key + 1,
 			'name'		=> $name[$key],
