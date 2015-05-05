@@ -230,7 +230,7 @@ class AppController extends Controller {
 							->join('behaviors','behaviors.id','=','app__behaviors.b_id')
 							->where('apps.id','=',$id)
 							->select('behaviors.id','behaviors.name','behaviors.genre','app__behaviors.score')
-							->orderBy('app__behaviors.score','desc')
+							->orderBy('behaviors.genre','asc')
 							->orderBy('behaviors.id','asc')
 							->get();
 
