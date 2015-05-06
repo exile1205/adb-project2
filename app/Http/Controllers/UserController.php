@@ -47,7 +47,7 @@ class UserController extends Controller {
 				$email = Input::get('email');
 				$pass = Input::get('password');
 
-				if (Auth::attempt(['email' => $email, 'password' => $pass]))
+				if (Auth::attempt(['email' => $email, 'password' => $pass], $remember))
 				{
 					$user = User::where('email','=',$email)
 								->first();
